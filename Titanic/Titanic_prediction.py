@@ -6,4 +6,4 @@ from pandas import Series,DataFrame
 import numpy as np
 
 data_train = pd.read_csv("train.csv")
-#print(data_train)
+print(data_train)
