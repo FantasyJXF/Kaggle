@@ -17,7 +17,7 @@ MSSubClass: Identifies the type of dwelling involved in the sale.
        180	PUD - MULTILEVEL - INCL SPLIT LEV/FOYER
        190	2 FAMILY CONVERSION - ALL STYLES AND AGES
 
-MSZoning: Identifies the general zoning classification of the sale.
+MSZoning: Identifies the general zoning classification of the sale. 区域
 		
        A	Agriculture
        C	Commercial
@@ -34,10 +34,10 @@ LotArea: Lot size in square feet
 
 Street: Type of road access to property
 
-       Grvl	Gravel	
-       Pave	Paved
+       Grvl	Gravel	 铺石路
+       Pave	Paved    水泥路
        	
-Alley: Type of alley access to property
+Alley: Type of alley access to property  通向房子的路
 
        Grvl	Gravel
        Pave	Paved
@@ -50,14 +50,14 @@ LotShape: General shape of property
        IR2	Moderately Irregular
        IR3	Irregular
        
-LandContour: Flatness of the property
+LandContour: Flatness of the property 平整度
 
        Lvl	Near Flat/Level	
        Bnk	Banked - Quick and significant rise from street grade to building
        HLS	Hillside - Significant slope from side to side
        Low	Depression
 		
-Utilities: Type of utilities available
+Utilities: Type of utilities available  公共设施
 		
        AllPub	All public Utilities (E,G,W,& S)	
        NoSewr	Electricity, Gas, and Water (Septic Tank)
@@ -78,7 +78,7 @@ LandSlope: Slope of property
        Mod	Moderate Slope	
        Sev	Severe Slope
 	
-Neighborhood: Physical locations within Ames city limits
+Neighborhood: Physical locations within Ames city limits 地理位置
 
        Blmngtn	Bloomington Heights
        Blueste	Bluestem
@@ -108,8 +108,8 @@ Neighborhood: Physical locations within Ames city limits
 			
 Condition1: Proximity to various conditions
 	
-       Artery	Adjacent to arterial street
-       Feedr	Adjacent to feeder street	
+       Artery	Adjacent to arterial street 毗邻主干道
+       Feedr	Adjacent to feeder street   毗邻支线街	
        Norm	Normal	
        RRNn	Within 200' of North-South Railroad
        RRAn	Adjacent to North-South Railroad
