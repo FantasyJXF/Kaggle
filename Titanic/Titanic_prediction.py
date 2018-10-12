@@ -12,9 +12,8 @@ from sklearn import linear_model
 
 train = pd.read_csv("train.csv")
 test = pd.read_csv("test.csv")
-frames = [train, test]
-data_all = pd.concat(frames, sort=True, keys=['x', 'y'])
 
+data_all = train.append(test, sort=True)
 
 '''
 拟合Cabin
@@ -28,6 +27,9 @@ def set_Cabin_type(df):
 # 补全Cabin`
 set_Cabin_type(data_all)
 
+
+# 补全Fare
+data_all.loc[data_all.Fare.isnull(), 'Fare'] = data_all.loc[data_all.Fare.notnull(),'Fare'].mean()
 
 '''
 根据Title分类
@@ -53,23 +55,9 @@ data_all = pd.concat([data_all, dummies_Title], axis=1)
 '''
 # 补全Age
 '''
-master_mean_age = data_all.loc[(data_all.Title_Master == 1), 'Age'].mean()
-data_all.loc[(data_all.Age.isnull()) & (data_all.Title_Master == 1), 'Age' ] = master_mean_age
-
-miss_mean_age = data_all.loc[(data_all.Title_Miss == 1), 'Age'].mean()
-data_all.loc[(data_all.Age.isnull()) & (data_all.Title_Miss == 1), 'Age' ] = miss_mean_age
-
-mr_mean_age = data_all.loc[(data_all.Title_Mr == 1), 'Age'].mean()
-data_all.loc[(data_all.Age.isnull()) & (data_all.Title_Mr == 1), 'Age' ] = mr_mean_age
-
-mrs_mean_age = data_all.loc[(data_all.Title_Mrs == 1), 'Age'].mean()
-data_all.loc[(data_all.Age.isnull()) & (data_all.Title_Mrs == 1), 'Age' ] = mrs_mean_age
-
-officer_mean_age = data_all.loc[(data_all.Title_Officer == 1), 'Age'].mean()
-data_all.loc[(data_all.Age.isnull()) & (data_all.Title_Officer == 1), 'Age' ] = officer_mean_age
-
-royalty_mean_age = data_all.loc[(data_all.Title_Royalty == 1), 'Age'].mean()
-data_all.loc[(data_all.Age.isnull()) & (data_all.Title_Royalty == 1), 'Age' ] = royalty_mean_age
+# 补全Age
+dict = (data_all.pivot_table(index = 'Title', aggfunc = 'mean')).Age.to_dict()
+data_all.loc[data_all.Age.isnull(), 'Age'] = data_all[data_all.Age.isnull()].Title.map(dict)
 
 
 '''
@@ -82,10 +70,8 @@ data_all['Child'] = (data_all.Age < 12) + 0
 # 完成Age与Fare的归一化
 '''
 scaler = preprocessing.StandardScaler()
-
 age_scale_param = scaler.fit(np.array(data_all.Age).reshape(-1,1))
 data_all['Age_scaled'] = scaler.fit_transform(np.array(data_all.Age).reshape(-1,1), age_scale_param)
-
 fare_scale_param = scaler.fit(np.array(data_all.Fare).reshape(-1,1))
 data_all['Fare_scaled'] = scaler.fit_transform(np.array(data_all.Fare).reshape(-1,1), fare_scale_param)
 
@@ -105,17 +91,17 @@ df.drop(['Pclass', 'Name', 'Sex', 'Ticket', 'Cabin', 'Embarked', 'Title'], axis=
 '''
 # 将总表格分为训练集和测试集
 '''
-data_train = df.loc[('x',slice(None)),:]
-data_test = df.loc[('x',slice(None)),:]
-data_test.pop('Survived')
-
-
+# data_train = df.loc[('x',slice(None)),:]
+# data_test = df.loc[('x',slice(None)),:]
+# data_test.pop('Survived')
+data_train = df.loc[df.Survived.notnull()]
+print(data_train.info())
 '''
 交叉验证集
 # 简单看看打分情况
 '''
 clf = linear_model.LogisticRegression(C=1.0, penalty='l1', tol=1e-6)
-data_train = df.filter(regex='Survived|Age_.*|Sibsp|Parch|Fare_scaled|Carbin_*|Sex_*|Pclass_*|Child|Title_*')
+data_train = df.filter(regex='Survived|Age_.*|SibSp|Parch|Fare_scaled|Carbin_*|Sex_*|Pclass_*|Child|Title_*')
 
 X = np.array(data_train.values[:,1:])
 y = np.array(data_train.values[:,0]).reshape(-1,1).astype(int)
