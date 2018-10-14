@@ -134,20 +134,20 @@ BldgType: Type of dwelling
 		
        1Fam	Single-family Detached	
        2FmCon	Two-family Conversion; originally built as one-family dwelling
-       Duplx	Duplex
-       TwnhsE	Townhouse End Unit
+       Duplx	Duplex  复式
+       TwnhsE	Townhouse End Unit  联排别墅
        TwnhsI	Townhouse Inside Unit
 	
 HouseStyle: Style of dwelling
 	
-       1Story	One story
-       1.5Fin	One and one-half story: 2nd level finished
+       1Story	One story 平房
+       1.5Fin	One and one-half story: 2nd level finished  一层半
        1.5Unf	One and one-half story: 2nd level unfinished
-       2Story	Two story
+       2Story	Two story  二层楼的房子
        2.5Fin	Two and one-half story: 2nd level finished
        2.5Unf	Two and one-half story: 2nd level unfinished
-       SFoyer	Split Foyer
-       SLvl	Split Level
+       SFoyer	Split Foyer  分厅
+       SLvl		Split Level  错层式的；房内有不同高度平面的
 	
 OverallQual: Rates the overall material and finish of the house
 
